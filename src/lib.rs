@@ -528,7 +528,7 @@ pub enum CountryCodeParseErr {
 
 impl CountryCode {
     /// Returns the ISO 3166-1 English short name
-    pub fn full_name(&self) -> &'static str {
+    pub fn name(&self) -> &'static str {
         use self::CountryCode::*;
         use full::*;
         match *self {
@@ -2358,6 +2358,6 @@ impl Into<u32> for CountryCode {
 
 impl Display for CountryCode {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        f.write_str(self.full_name())
+        f.write_str(self.name())
     }
 }
