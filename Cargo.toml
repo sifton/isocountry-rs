@@ -1,7 +1,14 @@
 [package]
 name = "isocountry-rs"
 version = "0.1.0"
-authors = ["Brett <sifton@users.noreply.github.com>"]
+authors = ["Brett <brett.russell@centro.net>"]
+description = "ISO 3166-1 enumeration for Rust"
+documentation = "http://docs.rs/isocountry-rs"
+homepage = "https://github.com/sifton/isocountry-rs"
+license = "MIT"
+keywords = ["iso3166", "iso3166-1", "country", "countrycode", "code", "locale", "region"]
+readme = "Readme.md"
+repository = "https://github.com/sifton/isocountry-rs.git"
 
 [dependencies]
 failure = "0.1.1"
