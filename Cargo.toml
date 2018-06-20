@@ -1,6 +1,6 @@
 [package]
-name = "isocountry-rs"
-version = "0.1.0"
+name = "isocountry"
+version = "0.1.1"
 authors = ["Brett <brett.russell@centro.net>"]
 description = "ISO 3166-1 enumeration for Rust"
 documentation = "http://docs.rs/isocountry-rs"
