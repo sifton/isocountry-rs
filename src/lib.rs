@@ -35,7 +35,7 @@ pub mod full;
 /// Unsigned ISO 3166-1 integer IDs for each country
 pub mod numeric;
 
-#[derive(Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 /// An enumeration of all ISO-3166-1 country codes
 pub enum CountryCode {
     /// Afghanistan
