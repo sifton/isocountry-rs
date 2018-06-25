@@ -1,7 +1,10 @@
 #[macro_use]
 extern crate failure;
+extern crate serde;
 
 use std::fmt::{self, Display};
+use serde::{Serialize, Serializer, Deserialize, Deserializer};
+use serde::de::{self, Visitor};
 
 /// Two-character uppercase ISO 3166-1 strings for each country
 pub mod alpha2;
@@ -2359,5 +2362,49 @@ impl Into<u32> for CountryCode {
 impl Display for CountryCode {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         f.write_str(self.full_name())
+    }
+}
+
+struct CountryCodeVisitor;
+
+impl Serialize for CountryCode {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where
+      S: Serializer {
+        serializer.collect_str(self.alpha2())
+    }
+}
+
+impl<'de> Deserialize<'de> for CountryCode {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where
+      D: Deserializer<'de> {
+        deserializer.deserialize_str(CountryCodeVisitor)
+    }
+}
+
+impl<'de> Visitor<'de> for CountryCodeVisitor {
+    type Value = CountryCode;
+
+    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        write!(formatter, "expecting an ISO 3166-1 compliant alpha-2 country code")
+    }
+
+    fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
+        where
+          E: de::Error,
+    {
+        match CountryCode::for_alpha2_caseless(v) {
+            Ok(x) => Ok(x),
+            Err(_) => Err(de::Error::invalid_value(de::Unexpected::Str(v), &self)),
+        }
+    }
+
+    fn visit_borrowed_str<E>(self, v: &'de str) -> Result<Self::Value, E>
+        where
+          E: de::Error,
+    {
+        match CountryCode::for_alpha2_caseless(v) {
+            Ok(x) => Ok(x),
+            Err(_) => Err(de::Error::invalid_value(de::Unexpected::Str(v), &self)),
+        }
     }
 }

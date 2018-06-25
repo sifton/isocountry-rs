@@ -5,3 +5,4 @@ authors = ["Brett <sifton@users.noreply.github.com>"]
 
 [dependencies]
 failure = "0.1.1"
+serde = "1"
