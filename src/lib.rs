@@ -1853,7 +1853,7 @@ impl CountryCode {
     /// assuming it is in upper-case characters
     pub fn for_alpha3(value: &str) -> Result<CountryCode, CountryCodeParseErr> {
         use CountryCode::*;
-        use alpha2::*;
+        use alpha3::*;
         match value {
             ISO_A3_AFG => Ok(AFG),
             ISO_A3_ALA => Ok(ALA),
