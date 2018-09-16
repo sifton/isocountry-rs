@@ -24,6 +24,9 @@
 #[macro_use]
 extern crate failure;
 extern crate serde;
+extern crate strum;
+#[macro_use]
+extern crate strum_macros;
 
 use std::fmt::{self, Display};
 use serde::{Serialize, Serializer, Deserialize, Deserializer};
@@ -38,7 +41,7 @@ pub mod full;
 /// Unsigned ISO 3166-1 integer IDs for each country
 pub mod numeric;
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, EnumIter)]
 /// An enumeration of all ISO-3166-1 country codes
 pub enum CountryCode {
     /// Afghanistan
