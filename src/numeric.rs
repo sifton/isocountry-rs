@@ -269,3 +269,5 @@ pub const ISO_NUM_ESH: u32 = 732;
 pub const ISO_NUM_YEM: u32 = 887;
 pub const ISO_NUM_ZMB: u32 = 894;
 pub const ISO_NUM_ZWE: u32 = 716;
+/// User-assigned code for Kosovo
+pub const ISO_NUM_UNK: u32 = 900;

@@ -269,3 +269,4 @@ pub const ISO_A3_ESH: &'static str = "ESH";
 pub const ISO_A3_YEM: &'static str = "YEM";
 pub const ISO_A3_ZMB: &'static str = "ZMB";
 pub const ISO_A3_ZWE: &'static str = "ZWE";
+pub const ISO_A3_UNK: &'static str = "UNK";

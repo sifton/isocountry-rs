@@ -269,3 +269,4 @@ pub const ISO_A2_ESH: &'static str = "EH";
 pub const ISO_A2_YEM: &'static str = "YE";
 pub const ISO_A2_ZMB: &'static str = "ZM";
 pub const ISO_A2_ZWE: &'static str = "ZW";
+pub const ISO_A2_UNK: &'static str = "XK";

@@ -270,3 +270,4 @@ pub const ISO_FULL_ESH: &'static str = "Western Sahara";
 pub const ISO_FULL_YEM: &'static str = "Yemen";
 pub const ISO_FULL_ZMB: &'static str = "Zambia";
 pub const ISO_FULL_ZWE: &'static str = "Zimbabwe";
+pub const ISO_FULL_UNK: &'static str = "Kosovo";
