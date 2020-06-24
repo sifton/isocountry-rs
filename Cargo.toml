@@ -9,7 +9,8 @@ license = "MIT"
 keywords = ["iso3166", "iso3166-1", "country", "countrycode", "region"]
 readme = "Readme.md"
 repository = "https://github.com/sifton/isocountry-rs.git"
+edition = "2018"
 
 [dependencies]
-failure = "0.1.1"
+thiserror = "1"
 serde = "1"
