@@ -21,13 +21,10 @@
 //SOFTWARE.
 
 
-#[macro_use]
-extern crate failure;
-extern crate serde;
-
 use std::fmt::{self, Display};
 use serde::{Serialize, Serializer, Deserialize, Deserializer};
 use serde::de::{self, Visitor};
+use thiserror::Error;
 
 /// Two-character uppercase ISO 3166-1 strings for each country
 pub mod alpha2;
@@ -542,13 +539,13 @@ pub enum CountryCode {
 }
 
 /// Errors that might arise when converting raw data into CountryCode
-#[derive(Debug, Fail, PartialEq)]
+#[derive(Debug, Error, PartialEq)]
 pub enum CountryCodeParseErr {
-    #[fail(display = "invalid alpha-2 country code string: {}", unknown)]
+    #[error("invalid alpha-2 country code string: {}", unknown)]
     InvalidAlpha2 { unknown: String },
-    #[fail(display = "invalid alpha-3 country code string: {}", unknown)]
+    #[error("invalid alpha-3 country code string: {}", unknown)]
     InvalidAlpha3 { unknown: String },
-    #[fail(display = "invalid ID (integer) country code: {}", unknown)]
+    #[error("invalid ID (integer) country code: {}", unknown)]
     InvalidID { unknown: u32 },
 }
 
