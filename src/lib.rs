@@ -35,6 +35,8 @@ pub mod full;
 /// Unsigned ISO 3166-1 integer IDs for each country
 pub mod numeric;
 
+mod sorted_arrays;
+
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 /// An enumeration of all ISO-3166-1 country codes
 pub enum CountryCode {
@@ -548,6 +550,8 @@ pub enum CountryCodeParseErr {
     #[error("invalid ID (integer) country code: {}", unknown)]
     InvalidID { unknown: u32 },
 }
+
+const NUM_COUNTRY_CODES: usize = 249;
 
 impl CountryCode {
     /// Returns the ISO 3166-1 English short name
@@ -2370,6 +2374,60 @@ impl CountryCode {
             ISO_NUM_ZWE => Ok(ZWE),
             x => Err(CountryCodeParseErr::InvalidID { unknown: x }),
         }
+    }
+
+    /// Returns an array of all CountryCode variants, sorted in ascending lexicographic order
+    /// by the full name of the corresponding country
+    pub fn as_array() -> &'static [CountryCode; NUM_COUNTRY_CODES] {
+        &sorted_arrays::CODES_SORTED_DEFAULT
+    }
+
+    /// Returns an array of all CountryCode variants, sorted in ascending lexicographic order
+    /// by the alpha-2 code for the corresponding country
+    pub fn as_array_alpha2() -> &'static [CountryCode; NUM_COUNTRY_CODES] {
+        &sorted_arrays::CODES_SORTED_ALPHA2
+    }
+
+    /// Returns an iterator over all CountryCode variants, sorted in ascending lexicographic order
+    /// by the alpha-3 code for the corresponding country
+    pub fn as_array_alpha3() -> &'static [CountryCode; NUM_COUNTRY_CODES] {
+        &sorted_arrays::CODES_SORTED_ALPHA3
+    }
+
+    /// Returns an iterator over all CountryCode variants, sorted in ascending order
+    /// by the numeric code for the corresponding country
+    pub fn as_array_numeric() -> &'static [CountryCode; NUM_COUNTRY_CODES] {
+        &sorted_arrays::CODES_SORTED_NUMERIC_ID
+    }
+
+    /// Returns an iterator over all CountryCode variants, sorted in ascending lexicographic order
+    /// by the full name of the corresponding country
+    pub fn iter() -> impl Iterator<Item = &'static CountryCode> {
+        sorted_arrays::CODES_SORTED_DEFAULT.iter()
+    }
+
+    /// Returns an iterator over all CountryCode variants, sorted in ascending lexicographic order
+    /// by the alpha-2 code for the corresponding country
+    pub fn iter_alpha2() -> impl Iterator<Item = &'static CountryCode> {
+        sorted_arrays::CODES_SORTED_ALPHA2.iter()
+    }
+
+    /// Returns an iterator over all CountryCode variants, sorted in ascending lexicographic order
+    /// by the alpha-3 code for the corresponding country
+    pub fn iter_alpha3() -> impl Iterator<Item = &'static CountryCode> {
+        sorted_arrays::CODES_SORTED_ALPHA3.iter()
+    }
+
+    /// Returns an iterator over all CountryCode variants, sorted in ascending order
+    /// by the numeric code for the corresponding country
+    pub fn iter_numeric() -> impl Iterator<Item = &'static CountryCode> {
+        sorted_arrays::CODES_SORTED_NUMERIC_ID.iter()
+    }
+
+    /// Returns the number of unique ISO 3166-1 defined country codes currently supported by this
+    /// library.
+    pub fn num_country_codes() -> usize {
+        NUM_COUNTRY_CODES
     }
 }
 
