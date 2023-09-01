@@ -139,6 +139,7 @@ pub const ISO_FULL_KEN: &str = "Kenya";
 pub const ISO_FULL_KIR: &str = "Kiribati";
 pub const ISO_FULL_PRK: &str = "Korea (Democratic People's Republic of)";
 pub const ISO_FULL_KOR: &str = "Korea (Republic of)";
+pub const ISO_FULL_XKX: &str = "Kosovo";
 pub const ISO_FULL_KWT: &str = "Kuwait";
 pub const ISO_FULL_KGZ: &str = "Kyrgyzstan";
 pub const ISO_FULL_LAO: &str = "Lao People's Democratic Republic";

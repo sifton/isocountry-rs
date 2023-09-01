@@ -277,6 +277,8 @@ pub enum CountryCode {
     PRK,
     /// Korea (Republic of)
     KOR,
+    /// Kosovo
+    XKX,
     /// Kuwait
     KWT,
     /// Kyrgyzstan
@@ -550,7 +552,7 @@ pub enum CountryCodeParseErr {
     InvalidID { unknown: u32 },
 }
 
-const NUM_COUNTRY_CODES: usize = 249;
+const NUM_COUNTRY_CODES: usize = 250;
 
 impl CountryCode {
     /// Returns the ISO 3166-1 English short name
@@ -677,6 +679,7 @@ impl CountryCode {
             KIR => ISO_FULL_KIR,
             PRK => ISO_FULL_PRK,
             KOR => ISO_FULL_KOR,
+            XKX => ISO_FULL_XKX,
             KWT => ISO_FULL_KWT,
             KGZ => ISO_FULL_KGZ,
             LAO => ISO_FULL_LAO,
@@ -934,6 +937,7 @@ impl CountryCode {
             KIR => ISO_NUM_KIR,
             PRK => ISO_NUM_PRK,
             KOR => ISO_NUM_KOR,
+            XKX => ISO_NUM_XKX,
             KWT => ISO_NUM_KWT,
             KGZ => ISO_NUM_KGZ,
             LAO => ISO_NUM_LAO,
@@ -1191,6 +1195,7 @@ impl CountryCode {
             KIR => ISO_A2_KIR,
             PRK => ISO_A2_PRK,
             KOR => ISO_A2_KOR,
+            XKX => ISO_A2_XKX,
             KWT => ISO_A2_KWT,
             KGZ => ISO_A2_KGZ,
             LAO => ISO_A2_LAO,
@@ -1448,6 +1453,7 @@ impl CountryCode {
             KIR => ISO_A3_KIR,
             PRK => ISO_A3_PRK,
             KOR => ISO_A3_KOR,
+            XKX => ISO_A3_XKX,
             KWT => ISO_A3_KWT,
             KGZ => ISO_A3_KGZ,
             LAO => ISO_A3_LAO,
@@ -1706,6 +1712,7 @@ impl CountryCode {
             ISO_A2_KIR => Ok(KIR),
             ISO_A2_PRK => Ok(PRK),
             ISO_A2_KOR => Ok(KOR),
+            ISO_A2_XKX => Ok(XKX),
             ISO_A2_KWT => Ok(KWT),
             ISO_A2_KGZ => Ok(KGZ),
             ISO_A2_LAO => Ok(LAO),
@@ -1974,6 +1981,7 @@ impl CountryCode {
             ISO_A3_KIR => Ok(KIR),
             ISO_A3_PRK => Ok(PRK),
             ISO_A3_KOR => Ok(KOR),
+            ISO_A3_XKX => Ok(XKX),
             ISO_A3_KWT => Ok(KWT),
             ISO_A3_KGZ => Ok(KGZ),
             ISO_A3_LAO => Ok(LAO),
@@ -2241,6 +2249,7 @@ impl CountryCode {
             ISO_NUM_KIR => Ok(KIR),
             ISO_NUM_PRK => Ok(PRK),
             ISO_NUM_KOR => Ok(KOR),
+            ISO_NUM_XKX => Ok(XKX),
             ISO_NUM_KWT => Ok(KWT),
             ISO_NUM_KGZ => Ok(KGZ),
             ISO_NUM_LAO => Ok(LAO),

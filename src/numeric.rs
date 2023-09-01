@@ -139,6 +139,7 @@ pub const ISO_NUM_KEN: u32 = 404;
 pub const ISO_NUM_KIR: u32 = 296;
 pub const ISO_NUM_PRK: u32 = 408;
 pub const ISO_NUM_KOR: u32 = 410;
+pub const ISO_NUM_XKX: u32 = 383;
 pub const ISO_NUM_KWT: u32 = 414;
 pub const ISO_NUM_KGZ: u32 = 417;
 pub const ISO_NUM_LAO: u32 = 418;

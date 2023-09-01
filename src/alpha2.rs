@@ -139,6 +139,7 @@ pub const ISO_A2_KEN: &str = "KE";
 pub const ISO_A2_KIR: &str = "KI";
 pub const ISO_A2_PRK: &str = "KP";
 pub const ISO_A2_KOR: &str = "KR";
+pub const ISO_A2_XKX: &str = "XK";
 pub const ISO_A2_KWT: &str = "KW";
 pub const ISO_A2_KGZ: &str = "KG";
 pub const ISO_A2_LAO: &str = "LA";
