@@ -20,10 +20,9 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-
-use std::fmt::{self, Display};
-use serde::{Serialize, Serializer, Deserialize, Deserializer};
 use serde::de::{self, Visitor};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
+use std::fmt::{self, Display};
 use thiserror::Error;
 
 /// Two-character uppercase ISO 3166-1 strings for each country
@@ -1585,8 +1584,8 @@ impl CountryCode {
     /// Attempts to determine the ISO 3166-1 CountryCode for the given two-character string,
     /// assuming it is in upper-case characters
     pub fn for_alpha2(value: &str) -> Result<CountryCode, CountryCodeParseErr> {
-        use CountryCode::*;
         use alpha2::*;
+        use CountryCode::*;
         match value {
             ISO_A2_AFG => Ok(AFG),
             ISO_A2_ALA => Ok(ALA),
@@ -1853,8 +1852,8 @@ impl CountryCode {
     /// Attempts to determine the ISO 3166-1 CountryCode for the given three-character string,
     /// assuming it is in upper-case characters
     pub fn for_alpha3(value: &str) -> Result<CountryCode, CountryCodeParseErr> {
-        use CountryCode::*;
         use alpha3::*;
+        use CountryCode::*;
         match value {
             ISO_A3_AFG => Ok(AFG),
             ISO_A3_ALA => Ok(ALA),
@@ -2120,8 +2119,8 @@ impl CountryCode {
 
     /// Attempts to determine the ISO 3166-1 CountryCode for the given unsigned integer
     pub fn for_id(value: u32) -> Result<CountryCode, CountryCodeParseErr> {
-        use CountryCode::*;
         use numeric::*;
+        use CountryCode::*;
         match value {
             ISO_NUM_AFG => Ok(AFG),
             ISO_NUM_ALA => Ok(ALA),
@@ -2446,15 +2445,19 @@ impl Display for CountryCode {
 struct CountryCodeVisitor;
 
 impl Serialize for CountryCode {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where
-      S: Serializer {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
         serializer.collect_str(self.alpha2())
     }
 }
 
 impl<'de> Deserialize<'de> for CountryCode {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where
-      D: Deserializer<'de> {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
         deserializer.deserialize_str(CountryCodeVisitor)
     }
 }
@@ -2467,8 +2470,8 @@ impl<'de> Visitor<'de> for CountryCodeVisitor {
     }
 
     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-        where
-          E: de::Error,
+    where
+        E: de::Error,
     {
         match CountryCode::for_alpha2_caseless(v) {
             Ok(x) => Ok(x),
@@ -2477,8 +2480,8 @@ impl<'de> Visitor<'de> for CountryCodeVisitor {
     }
 
     fn visit_borrowed_str<E>(self, v: &'de str) -> Result<Self::Value, E>
-        where
-          E: de::Error,
+    where
+        E: de::Error,
     {
         match CountryCode::for_alpha2_caseless(v) {
             Ok(x) => Ok(x),

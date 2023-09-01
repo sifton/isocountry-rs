@@ -20,7 +20,6 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-
 pub const ISO_FULL_AFG: &str = "Afghanistan";
 pub const ISO_FULL_ALA: &str = "Åland Islands";
 pub const ISO_FULL_ALB: &str = "Albania";
