@@ -139,6 +139,7 @@ pub const ISO_A3_KEN: &str = "KEN";
 pub const ISO_A3_KIR: &str = "KIR";
 pub const ISO_A3_PRK: &str = "PRK";
 pub const ISO_A3_KOR: &str = "KOR";
+pub const ISO_A3_XKX: &str = "XKX";
 pub const ISO_A3_KWT: &str = "KWT";
 pub const ISO_A3_KGZ: &str = "KGZ";
 pub const ISO_A3_LAO: &str = "LAO";

@@ -20,10 +20,9 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-
-use std::fmt::{self, Display};
-use serde::{Serialize, Serializer, Deserialize, Deserializer};
 use serde::de::{self, Visitor};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
+use std::fmt::{self, Display};
 use thiserror::Error;
 
 /// Two-character uppercase ISO 3166-1 strings for each country
@@ -278,6 +277,8 @@ pub enum CountryCode {
     PRK,
     /// Korea (Republic of)
     KOR,
+    /// Kosovo
+    XKX,
     /// Kuwait
     KWT,
     /// Kyrgyzstan
@@ -551,7 +552,7 @@ pub enum CountryCodeParseErr {
     InvalidID { unknown: u32 },
 }
 
-const NUM_COUNTRY_CODES: usize = 249;
+const NUM_COUNTRY_CODES: usize = 250;
 
 impl CountryCode {
     /// Returns the ISO 3166-1 English short name
@@ -678,6 +679,7 @@ impl CountryCode {
             KIR => ISO_FULL_KIR,
             PRK => ISO_FULL_PRK,
             KOR => ISO_FULL_KOR,
+            XKX => ISO_FULL_XKX,
             KWT => ISO_FULL_KWT,
             KGZ => ISO_FULL_KGZ,
             LAO => ISO_FULL_LAO,
@@ -935,6 +937,7 @@ impl CountryCode {
             KIR => ISO_NUM_KIR,
             PRK => ISO_NUM_PRK,
             KOR => ISO_NUM_KOR,
+            XKX => ISO_NUM_XKX,
             KWT => ISO_NUM_KWT,
             KGZ => ISO_NUM_KGZ,
             LAO => ISO_NUM_LAO,
@@ -1192,6 +1195,7 @@ impl CountryCode {
             KIR => ISO_A2_KIR,
             PRK => ISO_A2_PRK,
             KOR => ISO_A2_KOR,
+            XKX => ISO_A2_XKX,
             KWT => ISO_A2_KWT,
             KGZ => ISO_A2_KGZ,
             LAO => ISO_A2_LAO,
@@ -1449,6 +1453,7 @@ impl CountryCode {
             KIR => ISO_A3_KIR,
             PRK => ISO_A3_PRK,
             KOR => ISO_A3_KOR,
+            XKX => ISO_A3_XKX,
             KWT => ISO_A3_KWT,
             KGZ => ISO_A3_KGZ,
             LAO => ISO_A3_LAO,
@@ -1585,8 +1590,8 @@ impl CountryCode {
     /// Attempts to determine the ISO 3166-1 CountryCode for the given two-character string,
     /// assuming it is in upper-case characters
     pub fn for_alpha2(value: &str) -> Result<CountryCode, CountryCodeParseErr> {
-        use CountryCode::*;
         use alpha2::*;
+        use CountryCode::*;
         match value {
             ISO_A2_AFG => Ok(AFG),
             ISO_A2_ALA => Ok(ALA),
@@ -1707,6 +1712,7 @@ impl CountryCode {
             ISO_A2_KIR => Ok(KIR),
             ISO_A2_PRK => Ok(PRK),
             ISO_A2_KOR => Ok(KOR),
+            ISO_A2_XKX => Ok(XKX),
             ISO_A2_KWT => Ok(KWT),
             ISO_A2_KGZ => Ok(KGZ),
             ISO_A2_LAO => Ok(LAO),
@@ -1853,8 +1859,8 @@ impl CountryCode {
     /// Attempts to determine the ISO 3166-1 CountryCode for the given three-character string,
     /// assuming it is in upper-case characters
     pub fn for_alpha3(value: &str) -> Result<CountryCode, CountryCodeParseErr> {
-        use CountryCode::*;
         use alpha3::*;
+        use CountryCode::*;
         match value {
             ISO_A3_AFG => Ok(AFG),
             ISO_A3_ALA => Ok(ALA),
@@ -1975,6 +1981,7 @@ impl CountryCode {
             ISO_A3_KIR => Ok(KIR),
             ISO_A3_PRK => Ok(PRK),
             ISO_A3_KOR => Ok(KOR),
+            ISO_A3_XKX => Ok(XKX),
             ISO_A3_KWT => Ok(KWT),
             ISO_A3_KGZ => Ok(KGZ),
             ISO_A3_LAO => Ok(LAO),
@@ -2120,8 +2127,8 @@ impl CountryCode {
 
     /// Attempts to determine the ISO 3166-1 CountryCode for the given unsigned integer
     pub fn for_id(value: u32) -> Result<CountryCode, CountryCodeParseErr> {
-        use CountryCode::*;
         use numeric::*;
+        use CountryCode::*;
         match value {
             ISO_NUM_AFG => Ok(AFG),
             ISO_NUM_ALA => Ok(ALA),
@@ -2242,6 +2249,7 @@ impl CountryCode {
             ISO_NUM_KIR => Ok(KIR),
             ISO_NUM_PRK => Ok(PRK),
             ISO_NUM_KOR => Ok(KOR),
+            ISO_NUM_XKX => Ok(XKX),
             ISO_NUM_KWT => Ok(KWT),
             ISO_NUM_KGZ => Ok(KGZ),
             ISO_NUM_LAO => Ok(LAO),
@@ -2446,15 +2454,19 @@ impl Display for CountryCode {
 struct CountryCodeVisitor;
 
 impl Serialize for CountryCode {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where
-      S: Serializer {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
         serializer.collect_str(self.alpha2())
     }
 }
 
 impl<'de> Deserialize<'de> for CountryCode {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where
-      D: Deserializer<'de> {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
         deserializer.deserialize_str(CountryCodeVisitor)
     }
 }
@@ -2467,8 +2479,8 @@ impl<'de> Visitor<'de> for CountryCodeVisitor {
     }
 
     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-        where
-          E: de::Error,
+    where
+        E: de::Error,
     {
         match CountryCode::for_alpha2_caseless(v) {
             Ok(x) => Ok(x),
@@ -2477,8 +2489,8 @@ impl<'de> Visitor<'de> for CountryCodeVisitor {
     }
 
     fn visit_borrowed_str<E>(self, v: &'de str) -> Result<Self::Value, E>
-        where
-          E: de::Error,
+    where
+        E: de::Error,
     {
         match CountryCode::for_alpha2_caseless(v) {
             Ok(x) => Ok(x),
